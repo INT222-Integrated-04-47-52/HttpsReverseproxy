@@ -1,0 +1,22 @@
+version: '3'
+services:
+ HttpsRproxy_con:
+    container_name: HttpsRproxy_con
+    image: nginx
+    volumes:
+         - /home/dohttps/nginx/config/nginx.conf:/etc/nginx/nginx.conf/:rw
+         - /home/dohttps/nginx/config/conf.d/default.conf:/etc/nginx/conf.d/default.conf:rw 
+         - /home/dohttps/nginx/logs:/var/log/nginx/:rw
+         - /home/dohttps/nginx/ssl:/ssl/:rw
+    ports:
+         - "80:80"
+         - "443:443"
+    networks:
+       network:
+          ipv4_address: 172.27.0.7
+networks:
+  default:
+    external:
+       name: network
+  network:
+    external: true
